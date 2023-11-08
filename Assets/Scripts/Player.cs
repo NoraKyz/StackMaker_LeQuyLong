@@ -105,24 +105,27 @@ public class Player : MonoBehaviour
     {
         Vector3 target = transform.position;
         
-        Direct direction = GetDirectionInput();
-        
-        switch (direction)
+        Direct directionInput = GetDirectionInput();
+        Vector3 direction = Vector3.zero;
+  
+        switch (directionInput)
         {
             case Direct.Up:
-                target += Vector3.forward;
+                direction = Vector3.forward;
                 break;
             case Direct.Down:
-                target += Vector3.back;
+                direction = Vector3.back;
                 break;
             case Direct.Left:
-                target += Vector3.left;
+                direction = Vector3.left;
                 break;
             case Direct.Right:
-                target += Vector3.right;
+                direction = Vector3.right;
                 break;
         }
-
+        
+        target += direction;
+        
         return target;
     }
     private bool IsAtTargetPosition()

@@ -10,7 +10,7 @@ public class Brick : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<Player>().AddBrick();
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
