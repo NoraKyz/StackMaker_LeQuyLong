@@ -10,6 +10,7 @@ public class InputManager
     private Vector3 startPosInput;
     private Vector3 endPosInput;
     public Vector3 direction { get; private set; } = Vector3.zero;
+    public bool HasInput => direction != Vector3.zero;
     
     private bool enableInput = true;
     private enum Direct
