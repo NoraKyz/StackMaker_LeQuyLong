@@ -27,6 +27,7 @@ public class Player : MonoBehaviour
     private Vector3 targetPosition;
     
     private bool isMoving = false;
+    private bool enableInput = true;
 
     // Start is called before the first frame update
     void Start()
@@ -46,15 +47,15 @@ public class Player : MonoBehaviour
 
     private enum Direct
     {
-        Up,
-        Down,
+        Forward,
+        Back,
         Left,
         Right,
         None
     }
     private void GetInput()
     {
-        if (isMoving)
+        if (!enableInput)
         {
             return;
         }
@@ -76,6 +77,7 @@ public class Player : MonoBehaviour
                 if (!IsAtTargetPosition())
                 {
                     isMoving = true;
+                    enableInput = false;
                 }
             }
         }
@@ -87,12 +89,12 @@ public class Player : MonoBehaviour
  
         if (Vector2.Dot(distanceInput, Vector2.up) > 0.5f)
         {
-            return Direct.Up;
+            return Direct.Forward;
         }
 
         if(Vector2.Dot(distanceInput, Vector2.down) > 0.5f)
         {
-            return Direct.Down;
+            return Direct.Back;
         }
                 
         if(Vector2.Dot(distanceInput, Vector2.left) > 0.5f)
@@ -107,16 +109,17 @@ public class Player : MonoBehaviour
 
         return Direct.None;
     }
-    private Vector3 GetDirectionVector(Direct directionInput)
+    private Vector3 GetDirectionVector()
     {
         Vector3 direction = Vector3.zero;
+        Direct directionInput = GetDirectionInput();
         
         switch (directionInput)
         {
-            case Direct.Up:
+            case Direct.Forward:
                 direction = Vector3.forward;
                 break;
-            case Direct.Down:
+            case Direct.Back:
                 direction = Vector3.back;
                 break;
             case Direct.Left:
@@ -133,7 +136,7 @@ public class Player : MonoBehaviour
     {
         Vector3 target = transform.position;
         
-        Vector3 direction = GetDirectionVector(GetDirectionInput());
+        Vector3 direction = GetDirectionVector();
 
         while (Physics.Raycast(target, direction, 1f, layerMask))
         {
@@ -149,7 +152,7 @@ public class Player : MonoBehaviour
     }
     private void Move()
     {
-        if (isMoving == false)
+        if (!isMoving)
         {
             return;
         }
@@ -157,6 +160,12 @@ public class Player : MonoBehaviour
         if (IsAtTargetPosition())
         {
             isMoving = false;
+
+            if (bricks.Count > 0)
+            {
+                enableInput = true;
+            }
+            
             ChangeAnim("jump");
         }
         
