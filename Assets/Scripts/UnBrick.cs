@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class UnBrick : MonoBehaviour
 {
-    [SerializeField] private GameObject lastBrickPrefab;
+    [SerializeField] private Material lastBrickMaterial;
+    private bool isTrigger = false;
     private void OnTriggerEnter(Collider other)
     {
+        if (isTrigger)
+        {
+            return;
+        }
+        
         if (other.CompareTag("Player"))
         {
             other.GetComponent<Player>().RemoveBrick();
-            Instantiate(lastBrickPrefab, transform.position, lastBrickPrefab.transform.rotation);
-            Destroy(gameObject);
+            GetComponent<MeshRenderer>().material = lastBrickMaterial;
+            isTrigger = true;
         }
     }
 }

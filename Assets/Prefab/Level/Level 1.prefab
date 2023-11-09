@@ -61177,7 +61177,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1377060364527856, guid: bec8fbf23e70b4f42b574dddd6681a4c, type: 3}
       propertyPath: m_Name
-      value: winpos
+      value: WinPos
       objectReference: {fileID: 0}
     - target: {fileID: 4157892317022374, guid: bec8fbf23e70b4f42b574dddd6681a4c, type: 3}
       propertyPath: m_RootOrder

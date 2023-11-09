@@ -97,7 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ba4bf90e07568044ab21d5b9ac43a41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lastBrickPrefab: {fileID: 1186571016788469, guid: d325e206a2351bd4da8771df49ef995e, type: 3}
+  lastBrickMaterial: {fileID: 2100000, guid: 90dff8eb6f4f3544482f2b20bf720643, type: 2}
 --- !u!65 &8450372193293241042
 BoxCollider:
   m_ObjectHideFlags: 0
