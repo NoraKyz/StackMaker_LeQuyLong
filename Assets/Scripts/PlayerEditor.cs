@@ -31,6 +31,11 @@ public class PlayerEditor : MonoBehaviour
     void Start()
     {
         startPos = transform.position;
+        
+        Transform level = GameObject.Find("Level").transform;
+        brickParent = level.GetChild(0);
+        unBrickParent = level.GetChild(1);
+        wallParent = level.GetChild(2);
     }
 
     // Update is called once per frame
@@ -58,25 +63,25 @@ public class PlayerEditor : MonoBehaviour
             return;
         }
         
-        if(Input.GetKeyDown(KeyCode.UpArrow))
+        if(Input.GetKey(KeyCode.UpArrow))
         {
             isMoving = true;
             targetPosition = GetTargetPosition(Direct.Up);
         }
         
-        if(Input.GetKeyDown(KeyCode.DownArrow))
+        if(Input.GetKey(KeyCode.DownArrow))
         {
             isMoving = true;
             targetPosition = GetTargetPosition(Direct.Down);
         }
         
-        if(Input.GetKeyDown(KeyCode.LeftArrow))
+        if(Input.GetKey(KeyCode.LeftArrow))
         {
             isMoving = true;
             targetPosition = GetTargetPosition(Direct.Left);
         }
         
-        if(Input.GetKeyDown(KeyCode.RightArrow))
+        if(Input.GetKey(KeyCode.RightArrow))
         {
             isMoving = true;
             targetPosition = GetTargetPosition(Direct.Right);
@@ -98,7 +103,6 @@ public class PlayerEditor : MonoBehaviour
             SpawnPivot(wallPrefab, PivotType.Wall);
         }
     }
- 
     private Vector3 GetTargetPosition(Direct direction = Direct.None)
     {
         Vector3 target = transform.position;

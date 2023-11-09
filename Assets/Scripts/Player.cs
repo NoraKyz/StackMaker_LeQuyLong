@@ -128,8 +128,7 @@ public class Player : MonoBehaviour
     {
         Vector3 target = transform.position;
         
-        Direct directionInput = GetDirectionInput();
-        Vector3 direction = GetDirectionVector(directionInput);
+        Vector3 direction = GetDirectionVector(GetDirectionInput());
 
         while (Physics.Raycast(target, direction, 1f, layerMask))
         {

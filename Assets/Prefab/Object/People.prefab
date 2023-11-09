@@ -6198,7 +6198,7 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 8
-  speed: 5
+  speed: 15
 --- !u!65 &5801570399387426179
 BoxCollider:
   m_ObjectHideFlags: 0
