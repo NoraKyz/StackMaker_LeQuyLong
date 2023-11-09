@@ -70,8 +70,12 @@ public class Player : MonoBehaviour
 
             if (distanceInput.magnitude > DISTANCE_INPUT_MIN)
             {
-                isMoving = true;
                 targetPosition = GetTargetPosition();
+
+                if (!IsAtTargetPosition())
+                {
+                    isMoving = true;
+                }
             }
         }
     }
@@ -149,7 +153,11 @@ public class Player : MonoBehaviour
             return;
         }
 
-        isMoving = !IsAtTargetPosition();
+        if (IsAtTargetPosition())
+        {
+            isMoving = false;
+            ChangeAnim("jump");
+        }
         
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
     }
@@ -169,8 +177,6 @@ public class Player : MonoBehaviour
 
         PlayerBrick p = playerBrick.GetComponent<PlayerBrick>();
         bricks.Push(p);
-        
-        ChangeAnim("jump");
     }
     public void RemoveBrick()
     {
