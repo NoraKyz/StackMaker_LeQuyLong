@@ -177,4 +177,20 @@ public class PlayerEditor : MonoBehaviour
     {
         
     }
+    
+    private void ApplyPrefab()
+    {
+        int cnt = brickParent.childCount;
+        for (int i = 0; i < cnt; i++)
+        {
+            GameObject pivot = PrefabUtility.InstantiatePrefab(brickPrefab) as GameObject;
+            pivot.transform.position = brickParent.GetChild(i).position;
+            pivot.transform.SetParent(brickParent);
+        }
+        
+        for (int i = 0; i < cnt; i++)
+        {
+            Destroy(brickParent.GetChild(i).gameObject);
+        }   
+    }
 }

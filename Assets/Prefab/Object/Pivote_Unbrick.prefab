@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 23547103106710872}
   - component: {fileID: 8327173412211823298}
   - component: {fileID: 8450372193293241042}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Pivote_Unbrick
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -109,5 +109,5 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 1.0000014, z: 1.0000031}
+  m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0.0000010728836, y: 0.00000059604656, z: 0}

@@ -12,6 +12,7 @@ public class Player : MonoBehaviour
     [SerializeField] private GameObject playerBrickPrefab;
     [SerializeField] private Transform playerModel;
     [SerializeField] private Animator playerAnimator;
+    [SerializeField] private LayerMask layerMask;
     
     [Header("==============================================")]
     [SerializeField] private float speed = 5f;
@@ -101,13 +102,10 @@ public class Player : MonoBehaviour
 
         return Direct.None;
     }
-    private Vector3 GetTargetPosition()
+    private Vector3 GetDirectionVector(Direct directionInput)
     {
-        Vector3 target = transform.position;
-        
-        Direct directionInput = GetDirectionInput();
         Vector3 direction = Vector3.zero;
-  
+        
         switch (directionInput)
         {
             case Direct.Up:
@@ -123,9 +121,21 @@ public class Player : MonoBehaviour
                 direction = Vector3.right;
                 break;
         }
+
+        return direction;
+    }
+    private Vector3 GetTargetPosition()
+    {
+        Vector3 target = transform.position;
         
-        target += direction;
-        
+        Direct directionInput = GetDirectionInput();
+        Vector3 direction = GetDirectionVector(directionInput);
+
+        while (Physics.Raycast(target, direction, 1f, layerMask))
+        {
+            target += direction;
+        }
+
         return target;
     }
     private bool IsAtTargetPosition()

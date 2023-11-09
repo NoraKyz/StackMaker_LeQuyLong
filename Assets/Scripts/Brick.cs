@@ -5,12 +5,13 @@ using UnityEngine;
 
 public class Brick : MonoBehaviour
 {
+    [SerializeField] private Transform brickOnTop;
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             other.GetComponent<Player>().AddBrick();
-            gameObject.SetActive(false);
+            brickOnTop.gameObject.SetActive(false);
         }
     }
 }
