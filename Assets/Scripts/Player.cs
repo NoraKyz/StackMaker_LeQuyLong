@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -184,6 +185,15 @@ public class Player : MonoBehaviour
         
         GameObject playerBrick = bricks.Pop().gameObject;
         Destroy(playerBrick);
+    }
+    public void ClearBrick()
+    {
+        while (bricks.Count > 0)
+        {
+            RemoveBrick();
+        }
+        
+        ChangeAnim("win");
     }
     private void ChangeAnim(string animName)
     {

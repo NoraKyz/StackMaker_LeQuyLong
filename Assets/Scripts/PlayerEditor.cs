@@ -12,11 +12,13 @@ public class PlayerEditor : MonoBehaviour
     [SerializeField] private GameObject brickPrefab;
     [SerializeField] private GameObject unBrickPrefab;
     [SerializeField] private GameObject wallPrefab;
+    [SerializeField] private GameObject winPosPrefab;
     
     [Header("==============================================")]
     [SerializeField] private Transform brickParent;
     [SerializeField] private Transform unBrickParent;
     [SerializeField] private Transform wallParent;
+    [SerializeField] private Transform level;
     
     [Header("==============================================")]
     [SerializeField] private float speed = 20f;
@@ -32,7 +34,7 @@ public class PlayerEditor : MonoBehaviour
     {
         startPos = transform.position;
         
-        Transform level = GameObject.Find("Level").transform;
+        level = GameObject.Find("Level").transform;
         brickParent = level.GetChild(0);
         unBrickParent = level.GetChild(1);
         wallParent = level.GetChild(2);
@@ -101,6 +103,13 @@ public class PlayerEditor : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Keypad3))  
         {
             SpawnPivot(wallPrefab, PivotType.Wall);
+        }
+        
+        if (Input.GetKeyDown(KeyCode.Keypad4))
+        {
+            GameObject winPos = PrefabUtility.InstantiatePrefab(winPosPrefab) as GameObject;
+            winPos.transform.position = transform.position;
+            winPos.transform.SetParent(level);
         }
     }
     private Vector3 GetTargetPosition(Direct direction = Direct.None)
