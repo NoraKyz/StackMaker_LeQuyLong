@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    
+    #region Singleton
+
     private static LevelManager instance;
 
     public static LevelManager Instance
@@ -21,6 +22,17 @@ public class LevelManager : MonoBehaviour
         }
     }
 
+    #endregion
+
+    const int MAX_LEVEL = 3;
+
+    [SerializeField] private List<GameObject> levelPrefabs = new List<GameObject>();
+    
+    private int currLevelId;
+    private GameObject currentLevel;
+    
+    #region Unity Function
+
     private void Awake()
     {
         instance = this;
@@ -32,12 +44,7 @@ public class LevelManager : MonoBehaviour
         LoadLevel(currLevelId);
     }
 
-    const int MAX_LEVEL = 3;
-
-    [SerializeField] private List<GameObject> levelPrefabs = new List<GameObject>();
-    
-    private int currLevelId;
-    private GameObject currentLevel;
+    #endregion
     
     public void LoadNextLevel()
     {

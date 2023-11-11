@@ -20,22 +20,26 @@ public class UIManager : MonoBehaviour
             return instance;
         }
     }
+    
+    #endregion
+    
+    [SerializeField] private Text coinText;
+    [SerializeField] private Text levelText;
+    [SerializeField] private List<GameObject> panels;
+
+    #region Unity Function
 
     private void Awake()
     {
         instance = this;
     }
+    private void Start()
+    {
+        HidePanel(1);
+    }
 
     #endregion
     
-    [SerializeField] Text coinText;
-    [SerializeField] private List<GameObject> panels;
-
-    public void SetCoinInfor(int coin)
-    {
-        coinText.text = coin.ToString();
-    }
-
     private void ShowPanel(int index)
     {
         panels[index].SetActive(true);
@@ -54,5 +58,15 @@ public class UIManager : MonoBehaviour
     public void HideWinPopup()
     {
         HidePanel(1);
+    }
+    
+    public void SetCoinInfor(int coin)
+    {
+        coinText.text = coin.ToString();
+    }
+    
+    public void SetLevelInfor(int level)
+    {
+        levelText.text = level.ToString();
     }
 }
