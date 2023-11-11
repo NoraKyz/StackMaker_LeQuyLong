@@ -10,13 +10,14 @@ public class WinPos : MonoBehaviour
         if (other.CompareTag("Player"))
         {
             other.GetComponent<Player>().ClearBrick();
-            
-            Invoke(nameof(ShowWinPopup), 5f);
+
+            StartCoroutine(ShowWinPopupCoroutine());
         }
     }
     
-    private void ShowWinPopup()
+    private IEnumerator ShowWinPopupCoroutine()
     {
-        UIManager.Instance.OpenWinPopup();
+        yield return new WaitForSeconds(5f);
+        UIManager.Instance.ShowWinPopup();
     }
 }

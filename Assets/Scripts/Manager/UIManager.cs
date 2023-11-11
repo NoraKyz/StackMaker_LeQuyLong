@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    private static UIManager instance;
+    #region Singleton
 
+    private static UIManager instance;
     public static UIManager Instance
     {
         get
@@ -24,6 +25,8 @@ public class UIManager : MonoBehaviour
     {
         instance = this;
     }
+
+    #endregion
     
     [SerializeField] Text coinText;
     [SerializeField] private List<GameObject> panels;
@@ -33,23 +36,23 @@ public class UIManager : MonoBehaviour
         coinText.text = coin.ToString();
     }
 
-    private void OpenPanel(int index)
+    private void ShowPanel(int index)
     {
         panels[index].SetActive(true);
     }
 
-    private void ClosePanel(int index)
+    private void HidePanel(int index)
     { 
         panels[index].SetActive(false);
     }
 
-    public void OpenWinPopup()
+    public void ShowWinPopup()
     {
-        OpenPanel(1);
+        ShowPanel(1);
     }
     
-    public void CloseWinPopup()
+    public void HideWinPopup()
     {
-        ClosePanel(1);
+        HidePanel(1);
     }
 }

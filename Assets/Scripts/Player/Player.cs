@@ -165,8 +165,6 @@ public class Player : MonoBehaviour
             {
                 enableInput = true;
             }
-            
-            ChangeAnim("jump");
         }
         
         transform.position = Vector3.MoveTowards(transform.position, targetPosition, speed * Time.deltaTime);
@@ -187,6 +185,8 @@ public class Player : MonoBehaviour
 
         PlayerBrick p = playerBrick.GetComponent<PlayerBrick>();
         bricks.Push(p);
+        
+        ChangeAnim("jump");
     }
     public void RemoveBrick()
     {
@@ -206,6 +206,7 @@ public class Player : MonoBehaviour
     }
     private void ChangeAnim(string animName)
     {
+        playerAnimator.ResetTrigger(animName);
         playerAnimator.SetTrigger(animName);
     }
 }
