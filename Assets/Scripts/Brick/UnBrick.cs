@@ -5,10 +5,10 @@ using UnityEngine;
 public class UnBrick : MonoBehaviour
 {
     [SerializeField] private Material lastBrickMaterial;
-    private bool isTrigger = false;
+    private bool hasTrigger;
     private void OnTriggerEnter(Collider other)
     {
-        if (isTrigger)
+        if (hasTrigger)
         {
             return;
         }
@@ -17,7 +17,7 @@ public class UnBrick : MonoBehaviour
         {
             other.GetComponent<Player>().RemoveBrick();
             GetComponent<MeshRenderer>().material = lastBrickMaterial;
-            isTrigger = true;
+            hasTrigger = true;
         }
     }
 }

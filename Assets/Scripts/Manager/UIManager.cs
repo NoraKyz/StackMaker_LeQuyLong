@@ -36,10 +36,27 @@ public class UIManager : MonoBehaviour
     private void Start()
     {
         HidePanel(1);
+        
+        GameManager.Instance.OnEventEmitted += OnEventEmitted;
     }
 
     #endregion
     
+    private void OnEventEmitted(EventID eventId)
+    {
+        switch (eventId)
+        {
+            case EventID.OnCompleteLevel:
+                ShowWinPopup();
+                break;
+            case EventID.OnNextLevel:
+                HideWinPopup();
+                break;
+        }
+    }
+
+    #region Other Functions
+
     private void ShowPanel(int index)
     {
         panels[index].SetActive(true);
@@ -50,12 +67,12 @@ public class UIManager : MonoBehaviour
         panels[index].SetActive(false);
     }
 
-    public void ShowWinPopup()
+    private void ShowWinPopup()
     {
         ShowPanel(1);
     }
     
-    public void HideWinPopup()
+    private void HideWinPopup()
     {
         HidePanel(1);
     }
@@ -69,4 +86,6 @@ public class UIManager : MonoBehaviour
     {
         levelText.text = level.ToString();
     }
+
+    #endregion
 }

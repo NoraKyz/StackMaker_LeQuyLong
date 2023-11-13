@@ -1,18 +1,52 @@
-using System.Collections;
-using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    #region Singleton
+
+    private static GameManager instance;
+
+    public static GameManager Instance
     {
-        
+        get
+        {
+            if (instance == null)
+            {
+                instance = FindObjectOfType<GameManager>();
+            }
+
+            return instance;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    #endregion
+    public event Action<EventID> OnEventEmitted; 
+    
+    #region Unity Functions
+
+    private void Awake()
     {
-        
+        if (instance == null)
+        {
+            instance = this;
+        }
+    }
+
+    #endregion
+    private void EmitEvent(EventID eventID)
+    {
+        OnEventEmitted?.Invoke(eventID);
+    }
+    
+    public void EmitOnNextLevelEvent()
+    {
+        EmitEvent(EventID.OnNextLevel);
+    }
+    
+    public void EmitOnCompleteLevelEvent()
+    {
+        EmitEvent(EventID.OnCompleteLevel);
     }
 }
+

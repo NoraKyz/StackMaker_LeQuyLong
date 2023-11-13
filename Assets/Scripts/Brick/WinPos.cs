@@ -11,13 +11,13 @@ public class WinPos : MonoBehaviour
         {
             other.GetComponent<Player>().ClearBrick();
 
-            StartCoroutine(ShowWinPopupCoroutine());
+            StartCoroutine(OnCompleteLevel());
         }
     }
     
-    private IEnumerator ShowWinPopupCoroutine()
+    private IEnumerator OnCompleteLevel()
     {
         yield return new WaitForSeconds(5f);
-        UIManager.Instance.ShowWinPopup();
+        GameManager.Instance.EmitOnCompleteLevelEvent();
     }
 }

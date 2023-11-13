@@ -20,7 +20,7 @@ public class Player : MonoBehaviour
     
     private Stack<PlayerBrick> bricks = new Stack<PlayerBrick>();
 
-    private Vector3 startPos;
+    private readonly Vector3 startPos = Vector3.zero;
     
     private Vector2 startPosInput;
     private Vector2 endPosInput;
@@ -29,18 +29,29 @@ public class Player : MonoBehaviour
     private bool isMoving = false;
     private bool enableInput = true;
 
-    // Start is called before the first frame update
+    #region Unity Function
+
     void Start()
     {
-        startPos = transform.position;
+        GameManager.Instance.OnEventEmitted += OnEventEmitted;
     }
-
-    // Update is called once per frame
     void Update()
     {
         GetInput();
         
         Move();
+    }
+
+    #endregion
+    
+    private void OnEventEmitted(EventID eventID)
+    {
+        switch (eventID)
+        {
+            case EventID.OnNextLevel:
+                ResetPlayer();
+                break;
+        }
     }
 
     #region Movement Functions
@@ -171,7 +182,9 @@ public class Player : MonoBehaviour
     }
 
     #endregion
-    
+
+    #region Other Functions
+
     public void AddBrick()
     {
         if(Vector3.Distance(transform.position, startPos) > ERROR_VALUE)
@@ -209,4 +222,13 @@ public class Player : MonoBehaviour
         playerAnimator.ResetTrigger(animName);
         playerAnimator.SetTrigger(animName);
     }
+    
+    private void ResetPlayer()
+    {
+        enableInput = true;
+        transform.position = startPos;
+        playerModel.position += Vector3.up * BRICK_HEIGHT;
+    }
+
+    #endregion
 }

@@ -6,10 +6,10 @@ using UnityEngine;
 public class Brick : MonoBehaviour
 {
     [SerializeField] private Transform brickOnTop;
-    private bool isTrigger = false;
+    private bool hasTrigger;
     private void OnTriggerEnter(Collider other)
     {
-        if (isTrigger)
+        if (hasTrigger)
         {
             return;
         }
@@ -18,7 +18,7 @@ public class Brick : MonoBehaviour
         {
             other.GetComponent<Player>().AddBrick();
             brickOnTop.gameObject.SetActive(false);
-            isTrigger = true;
+            hasTrigger = true;
         }
     }
 }

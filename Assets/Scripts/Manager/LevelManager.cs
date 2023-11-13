@@ -42,11 +42,25 @@ public class LevelManager : MonoBehaviour
     private void Start()
     {
         LoadLevel(currLevelId);
+        
+        GameManager.Instance.OnEventEmitted += OnEventEmitted;
     }
 
     #endregion
     
-    public void LoadNextLevel()
+    private void OnEventEmitted(EventID eventID)
+    {
+        switch (eventID)
+        {
+            case EventID.OnNextLevel:
+                LoadNextLevel();
+                break;
+        }
+    }
+
+    #region Other Functions
+
+    private void LoadNextLevel()
     {
         if(currLevelId < MAX_LEVEL)
         {
@@ -70,4 +84,8 @@ public class LevelManager : MonoBehaviour
         
         currentLevel = Instantiate(levelPrefabs[id - 1], transform);
     }
+
+    #endregion
+    
+    
 }
