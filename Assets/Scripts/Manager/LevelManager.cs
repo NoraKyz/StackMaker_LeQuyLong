@@ -75,6 +75,7 @@ public class LevelManager : MonoBehaviour
     private void LoadLevel(int id)
     {
         currLevelId = id;
+        UIManager.Instance.SetLevelInfor(id);
         PlayerPrefs.SetInt("Level", currLevelId);
 
         if (currentLevel != null)

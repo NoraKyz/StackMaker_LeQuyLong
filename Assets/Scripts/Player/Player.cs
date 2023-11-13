@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
         switch (eventID)
         {
             case EventID.OnNextLevel:
-                ResetPlayer();
+                StartCoroutine(ResetPlayer());
                 break;
         }
     }
@@ -223,11 +223,13 @@ public class Player : MonoBehaviour
         playerAnimator.SetTrigger(animName);
     }
     
-    private void ResetPlayer()
+    private IEnumerator ResetPlayer()
     {
-        enableInput = true;
         transform.position = startPos;
         playerModel.position += Vector3.up * BRICK_HEIGHT;
+        
+        yield return new WaitForSeconds(0.5f);
+        enableInput = true;
     }
 
     #endregion

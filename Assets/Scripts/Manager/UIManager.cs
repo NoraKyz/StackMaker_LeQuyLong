@@ -84,7 +84,7 @@ public class UIManager : MonoBehaviour
     
     public void SetLevelInfor(int level)
     {
-        levelText.text = level.ToString();
+        levelText.text = "Level " + level;
     }
 
     #endregion
