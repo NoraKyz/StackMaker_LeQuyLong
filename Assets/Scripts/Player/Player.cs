@@ -6,10 +6,6 @@ using UnityEngine.Serialization;
 
 public class Player : MonoBehaviour
 {
-    private const float DISTANCE_INPUT_MIN = 5f;
-    private const float ERROR_VALUE = 0.0001f;
-    private const float BRICK_HEIGHT = 0.3f;
-    
     [SerializeField] private GameObject playerBrickPrefab;
     [SerializeField] private Transform playerModel;
     [SerializeField] private Animator playerAnimator;
@@ -81,7 +77,7 @@ public class Player : MonoBehaviour
             endPosInput = Input.mousePosition;
             Vector2 distanceInput = endPosInput - startPosInput;
 
-            if (distanceInput.magnitude > DISTANCE_INPUT_MIN)
+            if (distanceInput.magnitude > Constants.DISTANCE_INPUT_MIN)
             {
                 targetPosition = GetTargetPosition();
 
@@ -159,7 +155,7 @@ public class Player : MonoBehaviour
     private bool IsAtTargetPosition()
     {
         float distance = Vector3.Distance(transform.position, targetPosition);
-        return distance < ERROR_VALUE;
+        return distance < Constants.ERROR_VALUE;
     }
     private void Move()
     {
@@ -187,9 +183,9 @@ public class Player : MonoBehaviour
 
     public void AddBrick()
     {
-        if(Vector3.Distance(transform.position, startPos) > ERROR_VALUE)
+        if(Vector3.Distance(transform.position, startPos) > Constants.ERROR_VALUE)
         {
-            playerModel.position += Vector3.up * BRICK_HEIGHT;
+            playerModel.position += Vector3.up * Constants.BRICK_HEIGHT;
         }
         
         GameObject playerBrick = Instantiate(playerBrickPrefab, transform);
@@ -203,7 +199,7 @@ public class Player : MonoBehaviour
     }
     public void RemoveBrick()
     {
-        playerModel.position -= Vector3.up * BRICK_HEIGHT;
+        playerModel.position -= Vector3.up * Constants.BRICK_HEIGHT;
         
         GameObject playerBrick = bricks.Pop().gameObject;
         Destroy(playerBrick);
@@ -226,7 +222,7 @@ public class Player : MonoBehaviour
     private IEnumerator ResetPlayer()
     {
         transform.position = startPos;
-        playerModel.position += Vector3.up * BRICK_HEIGHT;
+        playerModel.position += Vector3.up * Constants.BRICK_HEIGHT;
         
         yield return new WaitForSeconds(0.5f);
         enableInput = true;

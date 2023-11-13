@@ -23,8 +23,7 @@ public class LevelManager : MonoBehaviour
     }
 
     #endregion
-
-    const int MAX_LEVEL = 3;
+    
 
     [SerializeField] private List<GameObject> levelPrefabs = new List<GameObject>();
     
@@ -62,7 +61,7 @@ public class LevelManager : MonoBehaviour
 
     private void LoadNextLevel()
     {
-        if(currLevelId < MAX_LEVEL)
+        if(currLevelId < Constants.MAX_LEVEL)
         {
             LoadLevel(currLevelId + 1);
         }
