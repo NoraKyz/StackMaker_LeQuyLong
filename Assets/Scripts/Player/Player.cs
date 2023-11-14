@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
 
     #endregion
     
+    #region Event Functions
     private void OnEventEmitted(EventID eventID)
     {
         switch (eventID)
@@ -49,6 +50,7 @@ public class Player : MonoBehaviour
                 break;
         }
     }
+    #endregion
 
     #region Movement Functions
 

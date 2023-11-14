@@ -3,44 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager : Singleton<LevelManager>
 {
-    #region Singleton
-
-    private static LevelManager instance;
-
-    public static LevelManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<LevelManager>();
-            }
-
-            return instance;
-        }
-    }
-
-    #endregion
-    
-
     [SerializeField] private List<GameObject> levelPrefabs = new List<GameObject>();
 
     private int currentLevelID;
     private GameObject currentLevel;
     
-    #region Unity Function
-
-    private void Awake()
-    {
-        instance = this;
-
-        currentLevelID = DataManager.Instance.level;
-    }
+    #region Unity Functions
 
     private void Start()
     {
+        currentLevelID = DataManager.Instance.level;
+        
         LoadLevel(currentLevelID);
 
         DataManager.Instance.OnDataChanged += OnDataChanged;
@@ -48,8 +23,8 @@ public class LevelManager : MonoBehaviour
 
     #endregion
 
-    #region Other Functions
-    
+    #region Event Functions
+
     private void OnDataChanged(DataType dataType, int value)
     {
         if(dataType == DataType.Level)
@@ -57,7 +32,11 @@ public class LevelManager : MonoBehaviour
             LoadLevel(value);
         }
     }
-    
+
+    #endregion
+
+    #region Other Functions
+
     private void LoadLevel(int id)
     {
         currentLevelID = id;
@@ -71,6 +50,4 @@ public class LevelManager : MonoBehaviour
     }
 
     #endregion
-    
-    
 }

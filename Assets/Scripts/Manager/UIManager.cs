@@ -3,36 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class UIManager : MonoBehaviour
+public class UIManager : Singleton<UIManager>
 {
-    #region Singleton
-
-    private static UIManager instance;
-    public static UIManager Instance
-    {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<UIManager>();
-            }
-
-            return instance;
-        }
-    }
-    
-    #endregion
-    
     [SerializeField] private Text coinText;
     [SerializeField] private Text levelText;
     [SerializeField] private List<GameObject> panels;
 
-    #region Unity Function
+    #region Unity Functions
 
-    private void Awake()
-    {
-        instance = this;
-    }
     private void Start()
     {
         HidePanel(1);
@@ -42,7 +20,9 @@ public class UIManager : MonoBehaviour
     }
 
     #endregion
-    
+
+    #region Event Functions
+
     private void OnEventEmitted(EventID eventId)
     {
         switch (eventId)
@@ -55,7 +35,6 @@ public class UIManager : MonoBehaviour
                 break;
         }
     }
-    
     private void OnDataChanged(DataType dataType, int value)
     {
         switch (dataType)
@@ -68,6 +47,8 @@ public class UIManager : MonoBehaviour
                 break;            
         }
     }
+
+    #endregion
 
     #region Other Functions
 

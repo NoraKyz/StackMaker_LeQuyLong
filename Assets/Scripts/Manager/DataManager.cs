@@ -1,42 +1,67 @@
 using System;
 using UnityEngine;
 
-public class DataManager : MonoBehaviour
+public class DataManager : Singleton<DataManager>
 {
-    #region Singleton
-
-    private static DataManager instance;
-    public static DataManager Instance
+    public event Action<DataType, int> OnDataChanged;
+    public int coins { get; private set; }
+    public int level { get; private set; }
+    
+    #region Unity Functions
+    
+    protected override void Awake()
     {
-        get
-        {
-            if (instance == null)
-            {
-                instance = FindObjectOfType<DataManager>();
-            }
+        base.Awake();
+        
+        coins = PlayerPrefs.GetInt("Coins", 0);
+        level = PlayerPrefs.GetInt("Level", 1);
+    }
 
-            return instance;
+    private void Start()
+    {
+        GameManager.Instance.OnEventEmitted += OnEventEmitted;
+    }
+
+    #endregion
+
+    #region Event Functions
+
+    private void OnEventEmitted(EventID eventID)
+    {
+        switch (eventID)
+        {
+            case EventID.OnNextLevel:
+                SetData(DataType.Level, GetNextLevel(level));
+                break;
         }
     }
 
     #endregion
     
-    public event Action<DataType, int> OnDataChanged;
-
-    public int coins { get; private set; }
-    public int level { get; private set; }
-    
-    #region Unity Function
-    
-    private void Awake()
+    #region Other Functions
+    private void SetCoin (int value)
     {
-        instance = this;
+        coins = value;
         
-        coins = PlayerPrefs.GetInt("Coins", 0);
-        level = PlayerPrefs.GetInt("Level", 1);
+        PlayerPrefs.SetInt("Coins", coins);
     }
     
-    #endregion
+    private void SetLevel (int value)
+    {
+        level = value;
+
+        PlayerPrefs.SetInt("Level", level);
+    }
+    
+    private int GetNextLevel(int currentLevel)
+    {
+        if(currentLevel + 1 > Constants.MAX_LEVEL)
+        {
+            return 1;
+        }
+        
+        return currentLevel + 1;
+    }
     
     public void SetData(DataType dataType, int value)
     {
@@ -53,22 +78,15 @@ public class DataManager : MonoBehaviour
         OnDataChanged?.Invoke(dataType, value);
     }
     
-    private void SetCoin (int value)
+    public void OnClickNoThanksBtn()
     {
-        coins = value;
-        
-        PlayerPrefs.SetInt("Coins", coins);
+        SetData(DataType.Coin, coins + Constants.COIN_PER_LEVEL);
     }
     
-    private void SetLevel (int value)
+    public void OnClickCTABtn()
     {
-        level = value;
-
-        if (level > Constants.MAX_LEVEL)
-        {
-            level = 1;
-        }
-        
-        PlayerPrefs.SetInt("Level", level);
+        SetData(DataType.Coin, coins + Constants.COIN_PER_ADS);
     }
+
+    #endregion
 }
