@@ -14,10 +14,6 @@ public class LevelManager : Singleton<LevelManager>
 
     private void Start()
     {
-        currentLevelID = DataManager.Instance.level;
-        
-        LoadLevel(currentLevelID);
-
         DataManager.Instance.OnDataChanged += OnDataChanged;
     }
 

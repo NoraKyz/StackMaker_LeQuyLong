@@ -20,6 +20,9 @@ public class DataManager : Singleton<DataManager>
     private void Start()
     {
         GameManager.Instance.OnEventEmitted += OnEventEmitted;
+        
+        SetData(DataType.Coin, coins);
+        SetData(DataType.Level, level);
     }
 
     #endregion
