@@ -21,5 +21,6 @@ public class WinPos : MonoBehaviour
     {
         chessOpen.SetActive(true);
         chessClose.SetActive(false);
+        SoundManager.Instance.Play(SoundType.OpenChest);
     }
 }

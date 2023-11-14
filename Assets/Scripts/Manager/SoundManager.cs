@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -36,7 +37,8 @@ public class SoundManager : Singleton<SoundManager>
     }
     
     private AudioSource GetAudioSource(AudioClip clip) {
-        GameObject tmp = new GameObject();
+        GameObject tmp = new GameObject("AudioObject");
+        tmp.transform.SetParent(transform);
         AudioSource source = tmp.AddComponent<AudioSource>();
         source.clip = clip;
         source.playOnAwake = false;
@@ -44,16 +46,16 @@ public class SoundManager : Singleton<SoundManager>
     }
 
     public void Play(SoundType type) {
-        if (isMuted) return;
+        if (isMuted)
+        {
+            return;
+        }
+        
         sounds[type].Play();
     }
 
     public void Mute(SoundType type) {
-        foreach (var item in sounds) {
-            if (!item.Value) {
-                item.Value.Stop();
-            }
-        }
+        sounds[type].Stop();
     }
 
     public void MuteAll() {

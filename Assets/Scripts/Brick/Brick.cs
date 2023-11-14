@@ -16,6 +16,8 @@ public class Brick : MonoBehaviour
         
         if (other.CompareTag("Player"))
         {
+            SoundManager.Instance.Play(SoundType.GetBrick);
+            
             other.GetComponent<Player>().AddBrick();
             brickOnTop.gameObject.SetActive(false);
             hasTrigger = true;

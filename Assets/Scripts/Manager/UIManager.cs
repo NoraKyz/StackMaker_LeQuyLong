@@ -66,6 +66,7 @@ public class UIManager : Singleton<UIManager>
     {
         yield return new WaitForSeconds(5f);
         ShowPanel(1);
+        SoundManager.Instance.Play(SoundType.OpenUI);
     }
     
     private void HideWinPopup()

@@ -96,6 +96,7 @@ public class Player : MonoBehaviour
                 {
                     isMoving = true;
                     enableInput = false;
+                    SoundManager.Instance.Play(SoundType.Move);
                 }
             }
         }
@@ -177,7 +178,7 @@ public class Player : MonoBehaviour
 
         if (IsAtTargetPosition())
         {
-            isMoving = false;
+            StopMoving();
 
             if (bricks.Count > 0)
             {
@@ -232,7 +233,7 @@ public class Player : MonoBehaviour
     
     private IEnumerator ResetPlayer()
     {
-        isMoving = false;
+        StopMoving();
         ResetTransform();
         
         yield return new WaitForSeconds(0.5f);
@@ -250,6 +251,12 @@ public class Player : MonoBehaviour
     private void LockAtChess()
     {
         transform.rotation = Quaternion.Euler(0f, -150f, 0f);
+    }
+
+    private void StopMoving()
+    {
+        isMoving = false;
+        SoundManager.Instance.Mute(SoundType.GetBrick);
     }
 
     #endregion
