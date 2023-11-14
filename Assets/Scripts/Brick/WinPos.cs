@@ -5,19 +5,21 @@ using UnityEngine;
 
 public class WinPos : MonoBehaviour
 {
+    [SerializeField] private GameObject chessOpen;
+    [SerializeField] private GameObject chessClose;
+    
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            other.GetComponent<Player>().ClearBrick();
-
-            StartCoroutine(OnCompleteLevel());
+            OpenChest();
+            GameManager.Instance.EmitCompleteLevelEvent();
         }
     }
-    
-    private IEnumerator OnCompleteLevel()
+
+    private void OpenChest()
     {
-        yield return new WaitForSeconds(5f);
-        GameManager.Instance.EmitCompleteLevelEvent();
+        chessOpen.SetActive(true);
+        chessClose.SetActive(false);
     }
 }

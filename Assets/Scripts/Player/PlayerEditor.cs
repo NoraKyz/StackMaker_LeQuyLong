@@ -6,9 +6,6 @@ using UnityEngine.Serialization;
 
 public class PlayerEditor : MonoBehaviour
 {
-    private const float DISTANCE_INPUT_MIN = 5f;
-    private const float ERROR_VALUE = 0.0001f;
-    
     [SerializeField] private GameObject brickPrefab;
     [SerializeField] private GameObject unBrickPrefab;
     [SerializeField] private GameObject wallPrefab;
@@ -137,7 +134,7 @@ public class PlayerEditor : MonoBehaviour
     private bool IsAtTargetPosition()
     {
         float distance = Vector3.Distance(transform.position, targetPosition);
-        return distance < ERROR_VALUE;
+        return distance < Constants.ERROR_VALUE;
     }
     private void Move()
     {

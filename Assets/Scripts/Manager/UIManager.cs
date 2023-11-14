@@ -28,7 +28,7 @@ public class UIManager : Singleton<UIManager>
         switch (eventId)
         {
             case EventID.OnCompleteLevel:
-                ShowWinPopup();
+                StartCoroutine(ShowWinPopup());
                 break;
             case EventID.OnNextLevel:
                 HideWinPopup();
@@ -62,8 +62,9 @@ public class UIManager : Singleton<UIManager>
         panels[index].SetActive(false);
     }
 
-    private void ShowWinPopup()
+    private IEnumerator ShowWinPopup()
     {
+        yield return new WaitForSeconds(5f);
         ShowPanel(1);
     }
     

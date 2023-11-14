@@ -48,8 +48,12 @@ public class Player : MonoBehaviour
             case EventID.OnNextLevel:
                 StartCoroutine(ResetPlayer());
                 break;
+            case EventID.OnCompleteLevel:
+                ClearBrick();
+                break;
         }
     }
+    
     #endregion
 
     #region Movement Functions

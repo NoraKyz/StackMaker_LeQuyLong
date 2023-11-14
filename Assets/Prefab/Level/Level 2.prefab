@@ -69787,6 +69787,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea76d25ae991f374abf06a9adb2441dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  chessOpen: {fileID: 8274455573348795195}
+  chessClose: {fileID: 8273806792610440762}
 --- !u!1 &8274293308092913895
 GameObject:
   m_ObjectHideFlags: 0
