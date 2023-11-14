@@ -49,7 +49,12 @@ public class Player : MonoBehaviour
                 StartCoroutine(ResetPlayer());
                 break;
             case EventID.OnCompleteLevel:
+                LockAtChess();
                 ClearBrick();
+                break;
+            case EventID.OnResetLevel:
+                ClearBrick();
+                StartCoroutine(ResetPlayer());
                 break;
         }
     }
@@ -227,11 +232,24 @@ public class Player : MonoBehaviour
     
     private IEnumerator ResetPlayer()
     {
-        transform.position = startPos;
-        playerModel.position += Vector3.up * Constants.BRICK_HEIGHT;
+        isMoving = false;
+        ResetTransform();
         
         yield return new WaitForSeconds(0.5f);
         enableInput = true;
+    }
+    
+    private void ResetTransform()
+    {
+        var transformCache = transform;
+        transformCache.position = startPos;
+        transformCache.rotation = Quaternion.identity;
+        playerModel.position += Vector3.up * Constants.BRICK_HEIGHT;
+    }
+
+    private void LockAtChess()
+    {
+        transform.rotation = Quaternion.Euler(0f, -150f, 0f);
     }
 
     #endregion

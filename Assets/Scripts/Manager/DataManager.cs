@@ -36,6 +36,9 @@ public class DataManager : Singleton<DataManager>
             case EventID.OnNextLevel:
                 SetData(DataType.Level, GetNextLevel(level));
                 break;
+            case EventID.OnResetLevel:
+                SetData(DataType.Level, level);
+                break;
         }
     }
 

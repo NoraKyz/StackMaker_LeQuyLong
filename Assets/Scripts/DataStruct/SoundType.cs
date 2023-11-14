@@ -1,4 +1,6 @@
-﻿public enum SoundType
-{
-    
+﻿public enum SoundType {
+    GetBrick,
+    Move,
+    OpenChest,
+    OpenUI,
 }

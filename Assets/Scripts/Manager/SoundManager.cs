@@ -5,13 +5,14 @@ using UnityEngine.Serialization;
 
 public class SoundManager : Singleton<SoundManager>
 {
-    [SerializeField] private Sound[] audioSources;
+    [SerializeField] private Audio[] audioClips;
+    
     [System.Serializable]
-    private struct Sound {
+    private struct Audio {
         public SoundType type;
-        public AudioSource audioSource;
+        public AudioClip audioClip;
     }
-
+    
     private Dictionary<SoundType, AudioSource> sounds = new Dictionary<SoundType, AudioSource>();
 
     public bool isMuted = false;
@@ -20,17 +21,30 @@ public class SoundManager : Singleton<SoundManager>
         get => isMuted;
         set => isMuted = value;
     }
-
-    public bool IsLoaded(SoundType type) {
-        return sounds.ContainsKey(type);
+    
+    protected override void Awake() {
+        base.Awake();
+        
+        GetSounds();
+    }
+    
+    private void GetSounds() {
+        foreach (Audio it in audioClips)
+        {
+            sounds.Add(it.type, GetAudioSource(it.audioClip));
+        }
+    }
+    
+    private AudioSource GetAudioSource(AudioClip clip) {
+        GameObject tmp = new GameObject();
+        AudioSource source = tmp.AddComponent<AudioSource>();
+        source.clip = clip;
+        source.playOnAwake = false;
+        return source;
     }
 
     public void Play(SoundType type) {
         if (isMuted) return;
-        if (!IsLoaded(type)) {
-            sounds.Add(type, GetAudio(type));
-            sounds[type].Play();
-        }
         sounds[type].Play();
     }
 
@@ -48,15 +62,4 @@ public class SoundManager : Singleton<SoundManager>
             item.Value.Stop();
         }
     }
-
-    public AudioSource GetAudio(SoundType type) {
-        for (int i = 0; i < audioSources.Length; ++i) {
-            if (audioSources[i].type == type) {
-                return audioSources[i].audioSource;
-            }
-        }
-
-        return null;
-    }
-
 }
