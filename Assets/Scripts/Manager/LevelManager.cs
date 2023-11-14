@@ -26,8 +26,8 @@ public class LevelManager : MonoBehaviour
     
 
     [SerializeField] private List<GameObject> levelPrefabs = new List<GameObject>();
-    
-    private int currLevelId;
+
+    private int currentLevelID;
     private GameObject currentLevel;
     
     #region Unity Function
@@ -35,47 +35,32 @@ public class LevelManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        currLevelId = PlayerPrefs.GetInt("Level", 1);
+
+        currentLevelID = DataManager.Instance.level;
     }
 
     private void Start()
     {
-        LoadLevel(currLevelId);
-        
-        GameManager.Instance.OnEventEmitted += OnEventEmitted;
+        LoadLevel(currentLevelID);
+
+        DataManager.Instance.OnDataChanged += OnDataChanged;
     }
 
     #endregion
-    
-    private void OnEventEmitted(EventID eventID)
-    {
-        switch (eventID)
-        {
-            case EventID.OnNextLevel:
-                LoadNextLevel();
-                break;
-        }
-    }
 
     #region Other Functions
-
-    private void LoadNextLevel()
+    
+    private void OnDataChanged(DataType dataType, int value)
     {
-        if(currLevelId < Constants.MAX_LEVEL)
+        if(dataType == DataType.Level)
         {
-            LoadLevel(currLevelId + 1);
-        }
-        else
-        {
-            LoadLevel(1);
+            LoadLevel(value);
         }
     }
     
     private void LoadLevel(int id)
     {
-        currLevelId = id;
-        UIManager.Instance.SetLevelInfor(id);
-        PlayerPrefs.SetInt("Level", currLevelId);
+        currentLevelID = id;
 
         if (currentLevel != null)
         {

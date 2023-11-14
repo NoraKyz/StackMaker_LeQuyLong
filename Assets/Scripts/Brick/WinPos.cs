@@ -18,6 +18,6 @@ public class WinPos : MonoBehaviour
     private IEnumerator OnCompleteLevel()
     {
         yield return new WaitForSeconds(5f);
-        GameManager.Instance.EmitOnCompleteLevelEvent();
+        GameManager.Instance.EmitCompleteLevelEvent();
     }
 }

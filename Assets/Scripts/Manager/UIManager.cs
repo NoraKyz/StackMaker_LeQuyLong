@@ -38,6 +38,7 @@ public class UIManager : MonoBehaviour
         HidePanel(1);
         
         GameManager.Instance.OnEventEmitted += OnEventEmitted;
+        DataManager.Instance.OnDataChanged += OnDataChanged;
     }
 
     #endregion
@@ -52,6 +53,19 @@ public class UIManager : MonoBehaviour
             case EventID.OnNextLevel:
                 HideWinPopup();
                 break;
+        }
+    }
+    
+    private void OnDataChanged(DataType dataType, int value)
+    {
+        switch (dataType)
+        {
+            case DataType.Coin:
+                SetCoinInfor(value);
+                break;
+            case DataType.Level:
+                SetLevelInfor(value);
+                break;            
         }
     }
 

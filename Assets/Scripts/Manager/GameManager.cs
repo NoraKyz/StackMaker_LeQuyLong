@@ -39,12 +39,12 @@ public class GameManager : MonoBehaviour
         OnEventEmitted?.Invoke(eventID);
     }
     
-    public void EmitOnNextLevelEvent()
+    public void EmitNextLevelEvent()
     {
         EmitEvent(EventID.OnNextLevel);
     }
     
-    public void EmitOnCompleteLevelEvent()
+    public void EmitCompleteLevelEvent()
     {
         EmitEvent(EventID.OnCompleteLevel);
     }
